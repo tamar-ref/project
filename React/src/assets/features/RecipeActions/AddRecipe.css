@@ -1,0 +1,94 @@
+#words {
+    color: black;
+    direction: rtl;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    /* להציג את ה-checkboxים בצורה אנכית */
+    gap: 10px;
+}
+
+h3 {
+    color: mediumpurple;
+}
+
+#continue {
+    background-color: rgba(0, 0, 0, 0.658);
+    position: absolute;
+    left: 100px;
+    bottom: 120px;
+}
+
+#save {
+    background-color: rgba(0, 0, 0, 0.658);
+    position: absolute;
+    left: 10vw;
+    bottom: -350px;
+}
+
+.searching .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: mediumpurple;
+}
+
+.searching .MuiInputLabel-root.Mui-focused {
+    color: mediumpurple;
+}
+
+#addIngredient {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    direction: ltr;
+    align-items: flex-end;
+    right: 0;
+}
+
+.ingredient-row {
+    display: flex;
+    align-items: center;
+}
+
+.searching {
+    width: 200px;
+    margin-right: 10px;
+}
+
+.custom-checkbox.Mui-checked {
+    color: mediumpurple !important;
+}
+
+.radio {
+    color: black;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
+
+#choose {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.alert-slide-in {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: top 0.3s ease-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background-color: white !important;
+    border: 1px solid black !important;
+    color: black !important;
+}
+
+ul {
+    list-style-type: none;
+}

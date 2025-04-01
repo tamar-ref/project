@@ -1,0 +1,96 @@
+.recipe {
+    height: 100px !important;
+    color: black;
+    border: 3px solid mediumpurple;
+    border-radius: 10px;
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    margin: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 350px;
+}
+
+#img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#recipes {
+    margin-top: 150px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#help {
+    height: 100px;
+    margin-top: 20px;
+    display: flex;
+    direction: ltr;
+    flex-direction: row;
+    align-items: end;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    right: 0;
+    background-color: white;
+    z-index: 9;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.658);
+}
+
+#no-results {
+    text-align: center;
+    color: gray;
+    font-size: 18px;
+    margin-top: 20px;
+    width: 100%;
+    display: block;
+}
+
+.recipe-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.recipe-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.recipe-info div {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.recipe-info div:first-child {
+    font-weight: bold;
+}
+
+#user {
+    color: mediumpurple;
+}
+
+#error {
+    color: mediumpurple;
+}
+
+.searching .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: mediumpurple;
+}
+
+.searching .MuiInputLabel-root.Mui-focused {
+    color: mediumpurple;
+}

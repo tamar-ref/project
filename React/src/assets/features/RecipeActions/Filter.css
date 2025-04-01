@@ -1,0 +1,17 @@
+.filter-button.MuiButton-contained {
+    background-color: rgba(0, 0, 0, 0.658);
+    height: 56px;
+}
+
+.searching .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: mediumpurple;
+}
+
+.searching .MuiInputLabel-root.Mui-focused {
+    color: mediumpurple;
+}
+
+.searching {
+    width: 200px;
+    margin-right: 10px;
+}

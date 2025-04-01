@@ -1,0 +1,33 @@
+.signin-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.signin-box .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rebeccapurple;
+}
+
+.signin-box .MuiInputLabel-root.Mui-focused {
+    color: rebeccapurple;
+}
+
+.signin-button.MuiButton-contained {
+    background-color: rebeccapurple;
+    margin-top: 16px;
+}
+
+.alert-slide-in {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: top 0.3s ease-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background-color: white !important;
+    border: 1px solid black !important;
+    color: black !important;
+}

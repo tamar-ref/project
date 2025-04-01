@@ -1,0 +1,17 @@
+C:\Users\user\Desktop\project\C#\Mock\bin\Debug\net7.0\Mock.deps.json
+C:\Users\user\Desktop\project\C#\Mock\bin\Debug\net7.0\Mock.runtimeconfig.json
+C:\Users\user\Desktop\project\C#\Mock\bin\Debug\net7.0\Mock.dll
+C:\Users\user\Desktop\project\C#\Mock\bin\Debug\net7.0\Mock.pdb
+C:\Users\user\Desktop\project\C#\Mock\bin\Debug\net7.0\Repository.dll
+C:\Users\user\Desktop\project\C#\Mock\bin\Debug\net7.0\Repository.pdb
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.AssemblyInfo.cs
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.csproj.CopyComplete
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.dll
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\refint\Mock.dll
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.pdb
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\Mock.genruntimeconfig.cache
+C:\Users\user\Desktop\project\C#\Mock\obj\Debug\net7.0\ref\Mock.dll

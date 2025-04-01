@@ -1,0 +1,15 @@
+C:\Users\user\Desktop\project\C#\Common\bin\Debug\net7.0\Common.deps.json
+C:\Users\user\Desktop\project\C#\Common\bin\Debug\net7.0\Common.dll
+C:\Users\user\Desktop\project\C#\Common\bin\Debug\net7.0\Common.pdb
+C:\Users\user\Desktop\project\C#\Common\bin\Debug\net7.0\Repository.dll
+C:\Users\user\Desktop\project\C#\Common\bin\Debug\net7.0\Repository.pdb
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.AssemblyInfo.cs
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.csproj.CopyComplete
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.dll
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\refint\Common.dll
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\Common.pdb
+C:\Users\user\Desktop\project\C#\Common\obj\Debug\net7.0\ref\Common.dll
