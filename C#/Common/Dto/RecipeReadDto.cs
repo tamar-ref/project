@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Repository.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Repository.Entities;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Common.Dto
@@ -16,8 +9,7 @@ namespace Common.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string UserName { get; set; }
-        public byte[]? Image { get; set; }
-        public IFormFile? ImageFile { get; set; }
+        public byte[]? Image { get; set; } // קבלת תמונה בפורמט byte[]
         public Category Category { get; set; }
         public RecipeType RecipeType { get; set; }
         public string Description { get; set; }

@@ -62,7 +62,6 @@ export default function UpdateDetails({ user, setUser}) {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log("תגובה מהשרת:", response);
             setShowAlert(true);
         } catch (error) {
             console.error("שגיאה בעדכון משתמש:", error);

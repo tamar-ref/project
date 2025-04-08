@@ -1,24 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Chip from '@mui/material/Chip'; // Import MUI Chip
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import Links from '../Links';
 import './Filter.css';
 
-export default function Filter() {
-    const [selectedIngredients, setSelectedIngredients] = useState([]); // State for selected ingredients
+export default function Filter({ filters, setFilters }) {
+    const [showAlert, setShowAlert] = useState(false);
+    const alertRef = useRef(null);
     const [ingredients, setIngredients] = useState([]);
-    const [recipeType, setRecipeType] = useState([
-        { id: 0, text: 'בשרי', isMarked: false },
-        { id: 2, text: 'חלבי', isMarked: false },
-        { id: 3, text: 'פרווה', isMarked: false },
+    const [recipesIngredients, setRecipesIngredients] = useState([]);
+    const [recipeTypes, setRecipeTypes] = useState([
+        { id: 0, text: 'בשרי' },
+        { id: 1, text: 'חלבי' },
+        { id: 2, text: 'פרווה' },
+    ]);
+    const [categories, setCategories] = useState([
+        { id: 0, text: 'עיקריות' },
+        { id: 1, text: 'תוספות' },
+        { id: 2, text: 'קינוחים' },
+        { id: 3, text: 'סלטים' },
+        { id: 4, text: 'מרקים' },
+        { id: 5, text: 'משקאות' },
+        { id: 6, text: 'אחר' },
+    ]);
+    const [methods, setMethods] = useState([
+        { id: 0, text: 'בישול' },
+        { id: 1, text: 'אפיה' },
+        { id: 2, text: 'טיגון' },
+        { id: 3, text: 'הקצפה' },
     ]);
 
-    const [selectedIngredient, setSelectedIngredient] = useState(null); // State to hold the selected ingredient
-    const [inputValue, setInputValue] = useState(""); // State for inputValue of Autocomplete
+    const navigate = useNavigate();
 
     useEffect(() => {
+        setShowAlert(false);
         axios.get(Links.ingredients)
             .then((response) => {
                 setIngredients(response.data);
@@ -26,71 +45,171 @@ export default function Filter() {
             .catch((error) => {
                 console.error("Error fetching ingredients:", error);
             });
+        axios.get(Links.recipesIngredients)
+            .then((response) => {
+                setRecipesIngredients(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching ingredients:", error);
+            });
     }, []);
 
-    const handleBoxClick = (id) => {
-        setRecipeType((prevBoxes) =>
-            prevBoxes.map((box) =>
-                box.id === id ? { ...box, isMarked: !box.isMarked } : box
-            )
-        );
+    useEffect(() => {
+        if (showAlert && alertRef.current) {
+            requestAnimationFrame(() => {
+                alertRef.current.style.transition = 'top 0.3s ease-out';
+                alertRef.current.style.top = '16px';
+            });
+        }
+    }, [showAlert]);
+
+    const handleCloseAlert = () => {
+        if (alertRef.current) {
+            alertRef.current.style.transition = 'top 0.3s ease-out';
+            alertRef.current.style.top = '-100px';
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 300);
+        }
+    };
+
+    const handleRecipeTypeChange = (event, newValue) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            types: newValue.map((item) => item.id),
+        }));
+    };
+
+    const handleCategoryChange = (event, newValue) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            categories: newValue.map((item) => item.id),
+        }));
+    };
+
+    const handleMethodChange = (event, newValue) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            methods: newValue.map((item) => item.text),
+        }));
     };
 
     const handleIngredientChange = (event, newValue) => {
-        if (newValue && !selectedIngredients.includes(newValue)) {
-            setSelectedIngredients([...selectedIngredients, newValue]); // Add selected ingredient to state
-        }
-        setSelectedIngredient(null); // Clear the input field immediately after selection
-        setInputValue(""); // Reset the inputValue to empty to clear the Autocomplete text box
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            yesIngredients: newValue.map((item) => item.name),
+        }));
     };
 
-    const handleDelete = (ingredientToDelete) => {
-        setSelectedIngredients(selectedIngredients.filter(ingredient => ingredient !== ingredientToDelete)); // Remove ingredient from state
+    const handleExcludedIngredientChange = (event, newValue) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            noIngredients: newValue.map((item) => item.name),
+        }));
+    };
+
+    const handleApplyFilters = () => {
+        const hasCommonString = filters.noIngredients.some(ing => filters.yesIngredients.includes(ing));
+        if (hasCommonString) {
+            setShowAlert(true);
+        }
+        else {
+            navigate('/', { state: { filters } });
+        }
     };
 
     return (
         <>
-            {recipeType.map((box) => (
-                <div
-                    key={box.id}
-                    style={{
-                        border: '1px solid black',
-                        padding: '10px',
-                        margin: '5px',
-                        textDecoration: box.isMarked ? 'line-through' : 'none',
-                        cursor: 'pointer',
-                        color: 'black'
-                    }}
-                    onClick={() => handleBoxClick(box.id)}
-                >
-                    {box.text}
+            <div className="filter-container">
+                <div className="filter-columns">
+                    {/* עמודה עם סימן ✔ */}
+                    <div className="filter-column">
+                        <h2>✔</h2>
+                        <Autocomplete
+                            multiple
+                            id="recipe-type-dropdown"
+                            options={recipeTypes}
+                            getOptionLabel={(option) => option.text}
+                            value={recipeTypes.filter((type) => filters.types.includes(type.id))}
+                            onChange={handleRecipeTypeChange}
+                            renderInput={(params) => <TextField {...params} label="סוג מאכל" />}
+                            className="searching"
+                        />
+                        <Autocomplete
+                            multiple
+                            id="category-dropdown"
+                            options={categories}
+                            getOptionLabel={(option) => option.text}
+                            value={categories.filter((category) => filters.categories.includes(category.id))}
+                            onChange={handleCategoryChange}
+                            renderInput={(params) => <TextField {...params} label="קטגוריה" />}
+                            className="searching"
+                        />
+                        <Autocomplete
+                            multiple
+                            id="show"
+                            options={ingredients}
+                            getOptionLabel={(option) => option.name}
+                            value={ingredients.filter((yes) => filters.yesIngredients.includes(yes.name))}
+                            onChange={handleIngredientChange}
+                            renderInput={(params) => <TextField {...params} label="מוצר" />}
+                            className="searching"
+                        />
+                    </div>
+
+                    {/* עמודה עם סימן ✖ */}
+                    <div className="filter-column">
+                        <h2>✖</h2>
+                        <Autocomplete
+                            multiple
+                            id="method-dropdown"
+                            options={methods}
+                            getOptionLabel={(option) => option.text}
+                            value={methods.filter((method) => filters.methods.includes(method.text))}
+                            onChange={handleMethodChange}
+                            renderInput={(params) => <TextField {...params} label="שיטת הכנה" />}
+                            className="searching"
+                        />
+                        <Autocomplete
+                            multiple
+                            id="dontShow"
+                            options={ingredients}
+                            getOptionLabel={(option) => option.name}
+                            value={ingredients.filter((no) => filters.noIngredients.includes(no.name))}
+                            onChange={handleExcludedIngredientChange}
+                            renderInput={(params) => <TextField {...params} label="מוצר" />}
+                            className="searching"
+                        />
+                    </div>
                 </div>
-            ))}
 
-            {/* אוטומט של מוצר */}
-            <Autocomplete
-                disablePortal
-                options={ingredients}
-                getOptionLabel={(option) => option.name}
-                value={selectedIngredient} // Bind the value to the selected ingredient
-                onChange={handleIngredientChange} // Handle product selection
-                inputValue={inputValue} // Bind the input value to state
-                onInputChange={(event, newInputValue) => setInputValue(newInputValue)} // Update inputValue on change
-                renderInput={(params) => <TextField {...params} label="מוצר" />}
-                className="searching"
-            />
-
-            {/* הצגת ה-Chips של המוצרים שנבחרו */}
-            <div>
-                {selectedIngredients.map((ingredient, index) => (
-                    <Chip
-                        key={index}
-                        label={ingredient.name}
-                        onDelete={() => handleDelete(ingredient)} // Delete chip on click
-                        style={{ margin: '5px' }}
-                    />
-                ))}
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleApplyFilters}
+                    className="apply-filters-button"
+                    sx={{
+                        backgroundColor: 'mediumpurple',
+                        marginTop: '20px',
+                    }}
+                >
+                    אישור
+                </Button>
             </div>
+            {showAlert && (
+                <Alert
+                    ref={alertRef}
+                    severity="error"
+                    className="alert-slide-in"
+                    action={
+                        <Button color="inherit" size="small" onClick={handleCloseAlert}>
+                            אישור
+                        </Button>
+                    }
+                >
+                    לא ניתן לבחור את אותו מרכיב גם ב'כן' וגם ב'לא'
+                </Alert>
+            )}
         </>
     );
 }

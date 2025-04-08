@@ -21,7 +21,8 @@ namespace Service.Services
             service.AddScoped<IService<IngredientDto, string>, IngredientService>();
             service.AddScoped<IReadService<RecipeReadDto, int>, RecipeReadService>();
             service.AddScoped<IWriteService<RecipeDto, int>, RecipeService>();
-            service.AddScoped<IService<RecipeIngredientDto, int>, RecipeIngredientService>();
+            service.AddScoped<IReadService<RecipeIngredientReadDto, int>, RecipeIngredientReadService>();
+            service.AddScoped<IWriteService<RecipeIngredientDto, int>, RecipeIngredientService>();
             service.AddScoped<IService<UserDto, string>, UserService>();
             service.AddAutoMapper(typeof(MyMapper));
             return service;

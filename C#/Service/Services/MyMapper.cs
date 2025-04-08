@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Dto;
+using Microsoft.AspNetCore.Http;
 using Repository.Entities;
 using System;
 using System.IO;
@@ -8,56 +9,62 @@ namespace Service.Services
 {
     public class MyMapper : Profile
     {
-        string DirectoryUrl = Path.Combine(Environment.CurrentDirectory, "Images");
+        private readonly string DirectoryUrl;
 
         public MyMapper()
         {
+            DirectoryUrl = Path.Combine(Environment.CurrentDirectory, "Images");
+
             if (!Directory.Exists(DirectoryUrl))
             {
                 Directory.CreateDirectory(DirectoryUrl);
             }
-            DirectoryUrl = DirectoryUrl + Path.DirectorySeparatorChar;
 
-            CreateMap<Ingredient, IngredientDto>();
-            CreateMap<IngredientDto, Ingredient>();
+            CreateMap<Ingredient, IngredientDto>().ReverseMap();
+            CreateMap<RecipeIngredient, RecipeIngredientDto>().ReverseMap();
+            CreateMap<RecipeIngredient, RecipeIngredientReadDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
 
-            CreateMap<Recipe, RecipeReadDto>()
-                .ForMember("Image", s => s.MapFrom(y => convertToBase64(DirectoryUrl + y.Image)));
-
-            CreateMap<RecipeDto, Recipe>()
-                .ForMember("Image", s => s.MapFrom(y => y.ImageFile != null ? y.ImageFile.FileName.ToString() : null));
+            CreateMap<Recipe, RecipeDto>().ReverseMap();
 
             CreateMap<Recipe, RecipeReadDto>()
-                .ForMember("Image", s => s.MapFrom(y => convertToBase64(DirectoryUrl + y.Image)));
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => ConvertToByteArray(DirectoryUrl + src.Image)));
 
             CreateMap<RecipeDto, Recipe>()
-                .ForMember("Image", s => s.MapFrom(y => y.ImageFile != null ? y.ImageFile.FileName.ToString() : null));
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageFile != null ? SaveImageToFile(src.ImageFile) : null));
 
-            CreateMap<RecipeIngredient, RecipeIngredientDto>();
-            CreateMap<RecipeIngredientDto, RecipeIngredient>();
-
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
         }
 
-        private string convertToBase64(string s)
+        private byte[]? ConvertToByteArray(string filePath)
         {
-            if (File.Exists(s))
+            if (File.Exists(filePath))
             {
                 try
                 {
-                    byte[] bytes = File.ReadAllBytes(s);
-                    return Convert.ToBase64String(bytes);
+                    return File.ReadAllBytes(filePath);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error reading file: {s}. Error: {ex.Message}");
-                    return null;
+                    Console.WriteLine($"Error reading file: {filePath}. Error: {ex.Message}");
                 }
             }
-            else
+            return null;
+        }
+
+        private string? SaveImageToFile(IFormFile file)
+        {
+            try
             {
-                Console.WriteLine($"File does not exist: {s}");
+                string filePath = Path.Combine(DirectoryUrl, file.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                return file.FileName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving file: {file.FileName}. Error: {ex.Message}");
                 return null;
             }
         }

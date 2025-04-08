@@ -7,8 +7,7 @@ namespace Common.Dto
     {
         public string Name { get; set; }
         public string UserName { get; set; }
-        public byte[]? Image { get; set; }
-        public IFormFile? ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; } // תמונה להעלאה בלבד
         public Category Category { get; set; }
         public RecipeType RecipeType { get; set; }
         public string Description { get; set; }

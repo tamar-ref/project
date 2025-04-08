@@ -47,7 +47,6 @@ h3 {
 
 .ingredient-row {
     display: flex;
-    align-items: center;
 }
 
 .searching {

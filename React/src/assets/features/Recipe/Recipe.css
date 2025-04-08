@@ -10,16 +10,26 @@
     margin: 0;
 }
 
+#divRecipe{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+#recipe {
+    color: black;
+}
+
 #userName {
     color: mediumpurple;
     position: absolute;
-    top: 300px;
+    top: 100px;
     margin-top: 5px;
     right: 5px;
 }
 
-h2 {
-    margin-top: 0;
+h1 {
+    margin-top: 80px;
+    color: mediumpurple;
 }
 
 .title {
@@ -30,16 +40,12 @@ hr {
     color: rgba(0, 0, 0, 0.658);
     background-color: rgba(0, 0, 0, 0.658);
     height: 2px;
-    width: 100%;
-    left: 0;
+    width: 60%;
+    left: 20%;
     position: absolute;
 }
 
-#methods{
-    color: black;
-}
-
-ul{
+#methods {
     color: black;
 }
 
@@ -53,58 +59,59 @@ ul{
     border: none;
 }
 
-/*#recipe {
-    padding: 20px;
-    margin-top: 140px;
-}
+/* Recipe.css */
 
+/* מגדיר עיצוב לכותרת */
 #header {
-    background-color: mediumpurple;
-    color: white;
-    border-bottom: 5px solid rgba(0, 0, 0, 0.658);
-    width: 100%;
-    margin: 0;
-    padding: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
     text-align: center;
 }
 
+/* עיצוב עבור שם המשתמש */
 #userName {
-    color: mediumpurple;
-    margin-top: 10px;
-    text-align: right;
-}
-
-h2 {
-    margin-top: 0;
-}
-
-.title {
-    color: mediumpurple;
-    font-size: 18px;
-    margin-top: 20px;
-}
-
-hr {
-    color: rgba(0, 0, 0, 0.658);
-    background-color: rgba(0, 0, 0, 0.658);
-    height: 2px;
-    width: 100%;
-    margin: 10px 0;
-}
-
-#methods {
-    color: black;
-    margin-top: 20px;
+    font-size: 1.2rem;
+    color: gray;
+    text-align: center;
     margin-bottom: 20px;
 }
 
+/* עיצוב לכל פרטי המתכון */
+#recipeDetails {
+    margin-bottom: 20px;
+}
+
+.recipeDetail {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.recipeDetail strong {
+    font-weight: bold;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* עיצוב עבור רשימת המצרכים */
 ul {
-    list-style-type: none;
-    padding-left: 0;
+    list-style-type: disc;
+    padding-left: 20px;
     color: black;
 }
 
 #c {
-    font-size: 16px;
-    margin-bottom: 10px;
-}*/
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+/* אופן הכנה */
+pre {
+    font-size: 1rem;
+    padding: 10px;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

@@ -13,6 +13,16 @@ export default function MyRecipe({ user, setUser, recipe }) {
     const [showAlert, setShowAlert] = useState(false);
     const alertRef = useRef(null);
     const navigate = useNavigate()
+    const [arrIngredients, setArrIngredients] = useState([]);
+
+    const goToServer = async () => {
+        const result = await axios.get(Links.recipesIngredients);
+        setArrIngredients(result.data);
+    };
+
+    useEffect(() => {
+        goToServer();
+    }, [recipe]);
 
     useEffect(() => {
         if (showAlert && alertRef.current) {
@@ -55,6 +65,7 @@ export default function MyRecipe({ user, setUser, recipe }) {
     return (
         <>
             <Profile user={user} setUser={setUser} />
+            <h1>{recipe.name}</h1>
             <div className="icons">
                 <DeleteIcon
                     onClick={handleButtonClick}
@@ -65,7 +76,7 @@ export default function MyRecipe({ user, setUser, recipe }) {
                     }}
                 />
                 <CreateIcon
-                    onClick={() => navigate('./updateRecipe')}
+                    onClick={() => navigate('/updateRecipe')}
                     style={{
                         color: 'rgba(0, 0, 0, 0.658)',
                         fontSize: '40px',
@@ -74,41 +85,41 @@ export default function MyRecipe({ user, setUser, recipe }) {
                 />
             </div>
             <div id="recipe">
-                <h2 id="header">{recipe.name}</h2>
                 <p id="userName">הועלה על ידי {recipe.userName}</p>
-                <div>
-                    {recipe.category}
-                    {recipe.recipeType}
-                    {recipe.methods}
+                <div id="recipeDetails">
+                    <div className="recipeDetail">
+                        <strong>קטגוריה:</strong> {recipe.category === 0 ? "עיקריות" :
+                            recipe.category === 1 ? "תוספות" :
+                                recipe.category === 2 ? "קינוחים" :
+                                    recipe.category === 3 ? "סלטים" :
+                                        recipe.category === 4 ? "מרקים" :
+                                            recipe.category === 5 ? "משקאות" :
+                                                "אחר"}
+                    </div>
+                    <div className="recipeDetail">
+                        <strong>סוג מתכון:</strong> {recipe.recipeType === 0 ? "בשרי" : recipe.recipeType === 1 ? "חלבי" : "פרווה"}
+                        <div>{recipe.methods}</div>
+                    </div>
                 </div>
                 <div>
                     <h3 className="title">מצרכים</h3>
                     <hr />
-                    {/*< div id="recipes">
-                        {arrIngredients.map((i) => {
-                            if (!i || !i.name || i.userName != user.result.userName) {
-                                return null;
-                            }
-                            return (
-                                <div key={i.id} className="recipe" onClick={() => goToRecipe(i)}>
-                                    <div className="recipe-content">
-                                        <img id="img" src={i.image || ''} alt={i.name} />
-                                        <div className="recipe-info">
-                                            <div>{i.name}</div>
-                                            <div id="user">הועלה על ידי {i.userName}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>*/}
+                    <ul>
+                        {arrIngredients.map((ingredient, index) => (
+                            ingredient.recipeId === recipe.id && (
+                                <li key={index} id="c">
+                                    {ingredient.amount && `  ${ingredient.amount}`} {ingredient.ingredientName}
+                                </li>
+                            )
+                        ))}
+                    </ul>
                 </div>
                 <div>
                     <h3 className="title">אופן הכנה</h3>
                     <hr />
-                    {recipe.description}
+                    <pre>{recipe.description}</pre>
                 </div>
-            </div >
+            </div>
             {showAlert && (
                 <Alert
                     ref={alertRef}

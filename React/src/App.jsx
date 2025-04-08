@@ -12,6 +12,7 @@ import Filter from './assets/features/RecipeActions/Filter';
 import Instructions from './assets/features/RecipeActions/Instructions';
 import AddRecipe from './assets/features/RecipeActions/AddRecipe';
 import UpdateRecipe from './assets/features/RecipeActions/UpdateRecipe';
+import MyFilter from './assets/features/RecipeActions/MyFilter';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) ||
@@ -20,8 +21,10 @@ function App() {
     name: 'אנונימי',
     password: ''
   });
+  const [filters, setFilters] = useState({ categories: [], types: [], methods: [], noIngredients: [], yesIngredients: [] });
   const [recipe, setRecipe] = useState(
-    {
+    JSON.parse(localStorage.getItem('recipe'))
+    || {
       name: '',
       userName: '',
       image: '',
@@ -30,7 +33,7 @@ function App() {
       recipeType: 0,
       description: '',
       methods: ''
-    } || JSON.parse(localStorage.getItem('recipe')));
+    });
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
@@ -41,17 +44,18 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Recipes user={user} setUser={setUser} setRecipe={setRecipe} />} />
+          <Route path='/' element={<Recipes user={user} setUser={setUser} setRecipe={setRecipe} filters={filters} setFilters={setFilters} />} />
           <Route path='/signIn' element={<SignIn setUser={setUser} />} />
           <Route path='/logIn' element={<LogIn setUser={setUser} />} />
-          <Route path='/myRecipes' element={<MyRecipes user={user} setUser={setUser} setRecipe={setRecipe} />} />
+          <Route path='/myRecipes' element={<MyRecipes user={user} setUser={setUser} setRecipe={setRecipe} filters={filters} setFilters={setFilters} />} />
           <Route path='/updateDetails' element={<UpdateDetails user={user} setUser={setUser} />} />
           <Route path='/recipe' element={<Recipe user={user} setUser={setUser} recipe={recipe} />} />
           <Route path='/myRecipe' element={<MyRecipe user={user} setUser={setUser} recipe={recipe} />} />
-          <Route path='/filter' element={<Filter />} />
+          <Route path='/filter' element={<Filter filters={filters} setFilters={setFilters} />} />
+          <Route path='/myFilter' element={<MyFilter filters={filters} setFilters={setFilters} />} />
           <Route path='/instructions' element={<Instructions />} />
           <Route path='/addRecipe' element={<AddRecipe user={user} />} />
-          <Route path='/updateRecipe' element={< UpdateRecipe />} />
+          <Route path='/updateRecipe' element={<UpdateRecipe user={user} recipe={recipe} />} />
         </Routes >
       </BrowserRouter>
     </>

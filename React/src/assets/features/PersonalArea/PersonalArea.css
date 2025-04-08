@@ -4,15 +4,15 @@
 }
 
 .signin-box .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: rebeccapurple;
+    border-color: mediumpurple;
 }
 
 .signin-box .MuiInputLabel-root.Mui-focused {
-    color: rebeccapurple;
+    color: mediumpurple;
 }
 
 .signin-button.MuiButton-contained {
-    background-color: rebeccapurple;
+    background-color: mediumpurple;
     margin-top: 16px;
 }
 

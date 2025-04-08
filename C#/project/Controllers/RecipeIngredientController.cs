@@ -11,24 +11,27 @@ namespace project.Controllers
     [ApiController]
     public class RecipeIngredientController : ControllerBase
     {
-        private readonly IService<RecipeIngredientDto, int> service;
-        public RecipeIngredientController(IService<RecipeIngredientDto, int> service)
+        private readonly IReadService<RecipeIngredientReadDto, int> serviceRead;
+        private readonly IWriteService<RecipeIngredientDto, int> service;
+
+        public RecipeIngredientController(IReadService<RecipeIngredientReadDto, int> serviceRead, IWriteService<RecipeIngredientDto, int> service)
         {
+            this.serviceRead = serviceRead;
             this.service = service;
         }
 
         // GET: api/<RecipeIngredientController>
         [HttpGet]
-        public async Task<List<RecipeIngredientDto>> Get()
+        public async Task<List<RecipeIngredientReadDto>> Get()
         {
-            return await service.GetAll();
+            return await serviceRead.GetAll();
         }
 
         // GET api/<RecipeIngredientController>/5
         [HttpGet("{id}")]
-        public async Task<RecipeIngredientDto> Get(int id)
+        public async Task<RecipeIngredientReadDto> Get(int id)
         {
-            return await service.Get(id);
+            return await serviceRead.Get(id);
         }
 
         // POST api/<RecipeIngredientController>
@@ -49,7 +52,7 @@ namespace project.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            await service.Delete(id);
+            await serviceRead.Delete(id);
         }
     }
 }
